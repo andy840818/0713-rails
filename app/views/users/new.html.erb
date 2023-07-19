@@ -1,0 +1,29 @@
+<h1>註冊帳號</h1>
+
+<%= form_with(model: @user, data:{ trubo: false } ) do |f| %>
+
+  <div>
+    <%= f.label :name, 'Name' %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :email, 'Email' %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :password, 'Password' %>
+    <%= f.password_field :password %>
+  </div>
+  <div>
+    <%= f.label :password, 'Password Confirmation' %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div>    
+    <%= f.submit '註冊帳號' %>
+  </div>
+
+<%end%>
+

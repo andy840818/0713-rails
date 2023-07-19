@@ -1,0 +1,21 @@
+<h1>會員登入</h1>
+              <!-- 加user前綴字 -->
+<%= form_with(scope: :user,  
+              url: logining_users_path,
+              data:{ trubo: false } ) do |f| %>
+
+  <div>
+    <%= f.label :email, 'Email' %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :password, 'Password' %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>    
+    <%= f.submit '登入' %>
+  </div>
+
+<%end%>
