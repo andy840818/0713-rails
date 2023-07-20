@@ -1,7 +1,10 @@
 class ArticlesController < ApplicationController
    before_action :set_params, only: [:show, :edit, :destroy, :update ]
+   #include UsersHelper
+    before_action :authenticated_user!, #except: [:]
 
   def index
+    @u = current_user
     @articles = Article.all.order(id: :desc)
   end
 

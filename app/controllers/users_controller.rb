@@ -24,10 +24,12 @@ class UsersController < ApplicationController
       params[:user][:email],
       params[:user][:password]
     )
-    if user # 發session/cookie
-      redirect_to root_path, notice: '我要進來囉'
+    if user
+       # 發session(伺服器)/cookie(瀏覽器)
+       session[:user] = user.id # [:自己設]
+      redirect_to root_path, notice: '進來囉'
     else
-      redirect_to login_users_path, alert: '失敗的麵'
+      redirect_to login_users_path, alert: '你不能進來'
     end
     # if email.present? and password.present?
     #   user = User.find_by(email: email, password: password)
@@ -39,6 +41,10 @@ class UsersController < ApplicationController
     # else
     #   redirect_to login_users_path, alert: '登入失敗'
     # end
+  end
+  def logout
+    session[:user] = nil
+    redirect_to root_path, notice:'--已登出--'
   end
 
  private
