@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'articles#index' #等於 get '/' ,to:'articles#index', as: 'root'
   
   get '/articles',to:'articles#index'
-  post '/articles',to:'articles#creat'
+  post '/articles',to:'articles#create'
   get '/articles/new',to:'articles#new', as:'new_article' 
   # 單一頁面
   get '/articles/:id',to:'articles#show', as: 'article'

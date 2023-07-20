@@ -4,29 +4,28 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :not_found #不用符號, 會馬上執行
   
   #Controller 很常用所以直接導入上層control
-  helper_method :user_singed_in?, :current_user
+  helper_method :user_signed_in?, :current_user
 
 
 
   private #私有方法, 只能透過公開的方法呼叫私有方法
 
-   def user_singed_in?
+  def user_signed_in?
     session[:user].present?
-  true
- end
+  end
 
  def current_user #抓一個user出來
-  if user_singed_in?
+  if user_signed_in?
     #記憶 把抓出來的東西塞進實體變數
-    @_uu = @_uu || User.find_by(id: session[:user])
+    @__user__ ||= User.find_by(id: session[:user])
   else
     nil
   end
 end
 
  def authenticated_user!
-  if not user_singed_in? #判斷有無登入
-       redirect_to login_user_path, notice: "沒登入不要吵!"
+  if not user_signed_in? #判斷有無登入
+       redirect_to login_users_path, notice: "沒登入不要吵!"
   end
  end
 

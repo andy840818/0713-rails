@@ -1,11 +1,13 @@
 class ArticlesController < ApplicationController
-   before_action :set_params, only: [:show, :edit, :destroy, :update ]
+   before_action :set_article, only: [:show ]
+   before_action :set_user_article, only: [:edit, :destroy, :update ]
    #include UsersHelper
-    before_action :authenticated_user!, #except: [:]
+   before_action :authenticated_user!, except: [:index, :show]
+
 
   def index
     @u = current_user
-    @articles = Article.all.order(id: :desc)
+    @articles = Article.includes(:user).order(id: :desc)
   end
 
   def new
@@ -15,7 +17,10 @@ class ArticlesController < ApplicationController
   def create
     #寫入資料庫
     #OBRM
-      @article = Article.new(article_params) #清洗過的article_params
+      #@article = Article.new(article_params) #清洗過的article_params
+      @article = current_user.articles.new(article_params) 
+                #因為有做 has_many  
+      @article.user = current_user # @artcile.user_id = current_user_id
       # @article.save
       #存檔完 , 頁面轉入 /articles
       # flash[:notice] = "你媽超胖!!!"
@@ -24,14 +29,12 @@ class ArticlesController < ApplicationController
       else
         #  redirect_to "/articles/new", alert: "是不會寫東西喔? 糙"
         render :new  #借頁面 拿new.html.erb => redirect_to "/articles/new"
-        
-        
       end
   end
  
   def destroy
     @article.destroy
-    redirect_to articles_path, notice: '刪除成功'
+    redirect_to gitarticles_path, notice: '刪除成功'
   end
 
   def show
@@ -66,9 +69,17 @@ class ArticlesController < ApplicationController
 
     #Strong Paramenter 強參數
   def article_params #清洗 (如果寫入的資料一個一個指定就可以不用洗)
-    article_params = params.require(:article).permit(:title, :content)
+    article_params = params.require(:article)
+                          .permit(:title, :content, :sub_title)
+                          #.merge(user: current_user)
   end
-  def set_params
+
+  def set_article
     @article = Article.find(params[:id])
   end
+
+  def set_user_article
+    @article = current_user.articles.find(params[:id])
+  end
+
 end

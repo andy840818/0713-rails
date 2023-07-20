@@ -1,5 +1,7 @@
 class User < ApplicationRecord
 
+  has_many :articles
+
   validates :password , confirmation: true #檢查確認密碼 有無相同
   validates :email, presence: true, 
                     uniqueness: true, 
@@ -8,6 +10,9 @@ class User < ApplicationRecord
                       message: '格式有誤' 
                     }
   before_create :encrypt_password 
+  def display 
+    name.present||email.split("@").first
+  end
 
  def self.login(email, password)
   return nil if email.empty? or password.empty?
