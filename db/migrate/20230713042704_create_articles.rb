@@ -6,7 +6,7 @@ class CreateArticles < ActiveRecord::Migration[7.0]
       t.text :content
 
       t.timestamps
-      # datetime :creat_at
+      # datetime :create_at
       # datetime :update_at
     end
   end

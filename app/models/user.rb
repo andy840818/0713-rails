@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
   has_many :articles
+  has_many :comments
 
   validates :password , confirmation: true #檢查確認密碼 有無相同
   validates :email, presence: true, 
@@ -28,5 +29,5 @@ class User < ApplicationRecord
   def encrypt_password
     pw = "x#{self.password}y".reverse
     self.password = Digest::SHA1.hexdigest(pw) 
-  end                
+  end   
 end

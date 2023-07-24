@@ -25,7 +25,7 @@ end
 
  def authenticated_user!
   if not user_signed_in? #判斷有無登入
-       redirect_to login_users_path, notice: "沒登入不要吵!"
+     redirect_to login_users_path, notice: "沒登入不要吵!"
   end
  end
 

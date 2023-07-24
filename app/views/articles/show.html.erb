@@ -3,3 +3,17 @@
 <article>
   <p><%= @article.content %></p>
 </article>
+
+<h2>留言</h2>
+<%= form_with(model:@comment,
+              #model[@comment, @artcile]
+              url: article_comments_path(@article)
+              data { turbo: false}) do |f| %>
+<div>1
+<%= label :content %>
+<%= t.text_area :content%>
+</div>
+
+<%= submit '新增留言'%>
+
+<%end%>

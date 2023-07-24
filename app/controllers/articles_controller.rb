@@ -38,18 +38,17 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    begin #判斷是否找的到ID
+     #判斷是否找的到ID
 
       # @article = Article.find(params[:id])
         # render html: @article.title # 交給 view 做
       #從Rails的根目錄拿取404檔案 ,  => 共通方法放在上層
       # render file: Rails.root.join('public','404.html'), 
       #       status:404, #為存在的頁面 200 , 加上狀態:表示為不存在的頁面404
-      #       layout: false # 為獨立的頁面 , 不加其他的東西
-                   
+      #       layout: false # 為獨立的頁面 , 不加其他的東西             
     # rescue
     #   render html: "是在找什麼啦?" 
-    end
+    @comment = Comment
   end
 
   def edit
@@ -67,10 +66,11 @@ class ArticlesController < ApplicationController
 
   end
 
+  private
     #Strong Paramenter 強參數
   def article_params #清洗 (如果寫入的資料一個一個指定就可以不用洗)
     article_params = params.require(:article)
-                          .permit(:title, :content, :sub_title)
+                           .permit(:title, :content, :sub_title) #如果有加欄位要加,才能寫進資料庫
                           #.merge(user: current_user)
   end
 
