@@ -24,11 +24,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_24_024747) do
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.integer "user_id", null: false
-    t.integer "artice_id", null: false
+    t.integer "article_id", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["artice_id"], name: "index_comments_on_artice_id"
+    t.index ["article_id"], name: "index_comments_on_article_id"
+    t.index ["deleted_at"], name: "index_comments_on_deleted_at"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -41,6 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_24_024747) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "comments", "artices"
+  add_foreign_key "comments", "articles"
   add_foreign_key "comments", "users"
 end

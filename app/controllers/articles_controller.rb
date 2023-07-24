@@ -48,7 +48,8 @@ class ArticlesController < ApplicationController
       #       layout: false # 為獨立的頁面 , 不加其他的東西             
     # rescue
     #   render html: "是在找什麼啦?" 
-    @comment = Comment
+    @comment = Comment.new
+    @comments = @article.comments.order(id: :desc)
   end
 
   def edit

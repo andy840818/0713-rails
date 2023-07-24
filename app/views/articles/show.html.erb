@@ -1,19 +1,31 @@
-<h1><%= @article.title %></h1>
+<h1>
+  <%= @article.title %>
+</h1>
+
+<div data-controller="like">
+  <a href="#" data-action="click->like#hi">讚</a>
+  <span data-like-target="count">0</span>
+</div>
 
 <article>
   <p><%= @article.content %></p>
 </article>
 
+<hr>
+
 <h2>留言</h2>
-<%= form_with(model:@comment,
-              #model[@comment, @artcile]
-              url: article_comments_path(@article)
-              data { turbo: false}) do |f| %>
-<div>1
-<%= label :content %>
-<%= t.text_area :content%>
-</div>
 
-<%= submit '新增留言'%>
 
-<%end%>
+<%= form_with(model: [@article, @comment]) do |f| %>
+  <div>
+    <%= f.label :content, '留言內容' %><br />
+    <%= f.text_area :content%>
+  </div>
+
+  <%= f.submit '新增留言'%>
+<% end %>
+
+<ul id="comment_list">
+  <%= render @comments %>
+</ul>
+<hr>
