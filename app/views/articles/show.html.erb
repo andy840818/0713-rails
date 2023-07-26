@@ -2,10 +2,14 @@
   <%= @article.title %>
 </h1>
 
-<div data-controller="like">
-  <a href="#" data-action="click->like#hi">讚</a>
-  <span data-like-target="count">0</span>
+<div data-ocntroller="like" 
+     data-liked="<%= current_user.liked?(@article) %>"
+     data-id = "<%= @article.id %>" >
+
+  <a href="#" data-like-target='likebtn' 
+              data-action="click->like#toggle"> 讚 </a>
 </div>
+
 
 <article>
   <p><%= @article.content %></p>
@@ -28,4 +32,5 @@
 <ul id="comment_list">
   <%= render @comments %>
 </ul>
+
 <hr>

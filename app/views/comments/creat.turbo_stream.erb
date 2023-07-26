@@ -1,0 +1,6 @@
+
+<%= turbo_stream.prepend 'comment_list', 
+    render('comments/comment', comment: @comment) %>
+    <%# render (@comment) %>
+
+<%= turbo_stream.update 'comment_content', render('') %>
